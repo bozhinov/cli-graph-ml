@@ -18,7 +18,7 @@
  * 
  */
 
- require_once( 'cli-graph-ml.class.php' );
+require_once( 'cli-graph-ml.class.php' );
 
  /* You can define a custom $config
  $config = [
@@ -42,7 +42,6 @@
  */
 
  $config = [];
- 
 
 $arr_val_example_1 = [1,2,5,6,7,9,12,15,18,19,38];
 $axis_x_values = ['Jan', 'Jun', 'Dec'];
@@ -64,7 +63,6 @@ $bar_graph->set_config([
 	]);
 $bar_graph->draw();
 
-
 // Draw with bar width 4
 $bar_width *= 2;
 echo 'Bar Width '.$bar_width.PHP_EOL;
@@ -75,7 +73,6 @@ $bar_graph->set_config([
 	'bar_color' => 'magenta'
 	]);
 $bar_graph->draw();
-
 
 // Draw with bar width 8
 $bar_width *= 2;
@@ -93,7 +90,6 @@ $bar_width *= 2;
 echo 'Remove underlines'.PHP_EOL;
 $bar_graph->set_bar_width( $bar_width );
 $bar_graph->set_config([
-	
 	'graph_length' => 20,
 	'draw_underlines' => false,
 	'bar_color' => 'green'
@@ -107,20 +103,14 @@ $arr_val_example_2 = [  7,7,6,3,5,8,0,10,8,9,3 ];
 $arr_val_example_3 = [  11,22,55,60,70,90,120,150,180,190,380 ];
 $axis_x_values = [ 'Jan', 'Jun', 'Dec' ];
 
-$bar_graph = [];
-
-$bar_graph[] = new cli_graph_ml( $arr_val_example_1, $axis_x_values, $config );
-$bar_graph[0]->set_config(['title', 'Months 1 in %']);
-
-$bar_graph[] = new cli_graph_ml( $arr_val_example_2, $axis_x_values, $config );
-$bar_graph[1]->set_config(['title', 'Months 2 in %']);
-
-$bar_graph[] = new cli_graph_ml( $arr_val_example_3, $axis_x_values, $config );
-$bar_graph[2]->set_config(['title', 'Months 3 in %']);
-
+$bar_graph = [
+	new cli_graph_ml($arr_val_example_1, $axis_x_values, ['title', 'Months 1 in %']),
+	new cli_graph_ml($arr_val_example_2, $axis_x_values, ['title', 'Months 2 in %']),
+	new cli_graph_ml($arr_val_example_3, $axis_x_values, ['title', 'Months 3 in %']),
+];
 // Prepare on each graph
 foreach( $bar_graph as $graph){
-    $graph->prepare_array_output();
+	$graph->prepare_array_output();
 }
 
 // draw on each graph each line
@@ -129,8 +119,8 @@ foreach( $bar_graph as $graph){
 $count_output_lines = $bar_graph[0]->count_output_lines();
 
 for( $i = 0; $i < $count_output_lines; $i++ ){
-    foreach( $bar_graph as $graph){
-        $graph->draw( $i, false, false); // Draw line $i, dont do line break and do not do prepare
-    }
-    echo PHP_EOL; // for get new line
+	foreach( $bar_graph as $graph){
+		$graph->draw( $i, false, false); // Draw line $i, dont do line break and do not do prepare
+	}
+	echo PHP_EOL; // for get new line
 }
