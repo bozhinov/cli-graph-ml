@@ -280,13 +280,11 @@ class cli_graph_ml
 	private $config = [];
 	private $count_data;
 	private $data_width;
-	private $bar_width = 1;
 	private $padding_left;
 	private $padding_right;
 	private $arr_output = [];
 	private $axis_x_values = [];
 
-	private $graph_length;
 	private $max_value;
 	private $min_value;
 	private $arr_prepare_output = [];
@@ -296,10 +294,7 @@ class cli_graph_ml
 
 	public function __construct($data = null, array $axis_x_values = [], array $config = [])
 	{
-		$this->set_config($config);
-
-		$this->graph_length = $this->config['graph_length'];
-		$this->bar_width = $this->config['bar_width'];
+		$this->config = array_merge($this->default_cfg, $config);
 
 		(!is_null($data)) AND $this->set_data($data);
 		(!empty($axis_x_values)) AND $this->set_axis_x_values($axis_x_values);
@@ -351,7 +346,7 @@ class cli_graph_ml
 		$this->count_data = count($this->data);
 		$this->max_value = max($this->data);
 		$this->min_value = min($this->data);
-		$this->data_width = $this->count_data * $this->bar_width;
+		$this->data_width = $this->count_data * $this->config['bar_width'];
 	}
 
 	/**
@@ -362,15 +357,6 @@ class cli_graph_ml
 	public function set_arr_id_data_visible(bool $arr_id_data_visible)
 	{
 		$this->arr_id_data_visible = $arr_id_data_visible;
-	}
-
-	/**
-	 * Set EXPLAIN VALUES
-	 * @param boolean $explain_values
-	 */
-	public function set_explain_values(bool $explain_values = true)
-	{
-		$this->config['explain_values'] = $explain_values;
 	}
 
 	/**
@@ -387,78 +373,12 @@ class cli_graph_ml
 	}
 
 	/**
-	 * Set EXPLAIN VALUES SAME LINE
-	 * @param boolean $explain_values_same_line
-	 */
-	public function set_explain_values_same_line(bool $explain_values_same_line = true)
-	{
-		$this->config['explain_values_same_line'] = $explain_values_same_line;
-		if($this->config['explain_values_same_line']){
-			$this->set_explain_values(); // Default true
-		}
-	}
-
-	/**
 	 * Set Outlier Factor
 	 * @param double $outlier_factor
 	 */
 	public function set_outlier_factor(int $outlier_factor = 2)
 	{
 		$this->outlier_factor = $outlier_factor;
-	}
-
-	/**
-	 * Set TITLE
-	 * @param string $title
-	 */
-	public function set_title(string $title = '')
-	{
-		$this->config['title'] = $title;
-	}
-
-	/**
-	 * Set draw underlines every x rows
-	 * @param integer $underlines_every
-	 */
-	public function set_underlines_every(int $underlines_every = 1)
-	{
-		$this->config['underlines_every'] = $underlines_every;
-	}
-
-	/**
-	 * Set X AXIS TITLE
-	 * @param string $x_axis_title
-	 */
-	public function set_x_axis_title(string $x_axis_title = '')
-	{
-		$this->config['x_axis_title'] = $x_axis_title;
-	}
-
-	/**
-	 * Set Y AXIS TITLE
-	 * @param string $y_axis_title
-	 */
-	public function set_y_axis_title(string $y_axis_title = '')
-	{
-		$this->config['y_axis_title'] = $y_axis_title;
-	}
-
-	/**
-	 * Set SHOW X AXIS TITLE
-	 * @param boolean $show_x_axis_title
-	 */
-	public function set_show_x_axis_title(bool $show_x_axis_title = true)
-	{
-		$this->config['show_x_axis_title'] = $show_x_axis_title;
-	}
-
-	/**
-	 * Set SHOW Y AXIS TITLE
-	 * @param boolean $show_y_axis_title
-	 */
-	public function set_show_y_axis_title(bool $show_y_axis_title = true)
-	{
-		$this->config['show_y_axis_title'] = $show_y_axis_title;
 	}
 
 	/**
@@ -477,64 +397,10 @@ class cli_graph_ml
 	 */
 	public function set_padding(int $padding = 1)
 	{
-		$this->set_left_padding($padding);
-		$this->set_right_padding($padding);
-		$this->set_top_padding($padding);
-		$this->set_bottom_padding($padding);
-	}
-
-	/**
-	 * Set SET LEFT PADDING
-	 * @param integer $left_padding
-	 */
-	public function set_left_padding(int $left_padding = 1)
-	{
-		$this->config['left_padding'] = $left_padding;
-	}
-
-	/**
-	 * Set SET RIGHT PADDING
-	 * @param integer $left_padding
-	 */
-	public function set_right_padding(int $right_padding = 1)
-	{
-		$this->config['right_padding'] = $right_padding;
-	}
-
-	/**
-	 * Set SET TOP PADDING
-	 * @param integer $top_padding
-	 */
-	public function set_top_padding(int $top_padding = 1)
-	{
-		$this->config['top_padding'] = $top_padding;
-	}
-
-	/**
-	 * Set SET BOTTOM PADDING
-	 * @param integer $bottom_padding
-	 */
-	public function set_bottom_padding(int $bottom_padding = 1)
-	{
-		$this->config['bottom_padding'] = $bottom_padding;
-	}
-
-	/**
-	 * Set Graph Length
-	 * @param integer $length
-	 */
-	public function set_graph_length(int $length = 10)
-	{
-		$this->graph_length = $length;
-	}
-
-	/**
-	 * Set DRAW UNDERLINES
-	 * @param boolean $draw_underlines
-	 */
-	public function set_draw_underlines(bool $draw_underlines = true)
-	{
-		$this->config['draw_underlines'] = $draw_underlines;
+		$this->config['left_padding'] = $padding;
+		$this->config['right_padding'] = $padding;
+		$this->config['top_padding'] = $padding;
+		$this->config['bottom_padding'] = $padding;
 	}
 
 	/**
@@ -543,7 +409,7 @@ class cli_graph_ml
 	 */
 	public function set_bar_width(int $bar_width = 1)
 	{
-		$this->bar_width = $bar_width;
+		$this->config['bar_width'] = $bar_width;
 		$this->data_width = $this->count_data * $bar_width;
 	}
 
@@ -562,7 +428,7 @@ class cli_graph_ml
 	 */
 	public function set_config(array $config)
 	{
-		$this->config = array_merge($this->default_cfg, $config);
+		$this->config = array_merge($this->config, $config);
 	}
 
 	/**
@@ -598,8 +464,8 @@ class cli_graph_ml
 		$this->arr_prepare_output = [];
 
 		for($i = 0; $i < $this->count_data; $i++){
-			$full = (int)($this->data[$i] * $this->graph_length / $this->max_value);
-			$empty = $this->graph_length - $full;
+			$full = (int)($this->data[$i] * $this->config['graph_length'] / $this->max_value);
+			$empty = $this->config['graph_length'] - $full;
 
 			$strPrepare = '';
 
@@ -626,32 +492,34 @@ class cli_graph_ml
 	{
 		$str_line = '';
 		$explain = $this->config['explain_values'];
+		$bar_width = $this->config['bar_width'];
+		$graph_length = $this->config['graph_length'];
 		$bar_color = $this->text_colors[$this->config['bar_color']];
 		$chr_underlines = ($this->config['draw_underlines'] && (($id_line+1) % $this->config['underlines_every'] == 0)) ? '_' : ' ';
 		
 		foreach($this->data as $key => $data){
-			if($this->arr_prepare_output[$key][$this->graph_length-$id_line-1]=='1'){
+			if($this->arr_prepare_output[$key][$graph_length - $id_line-1]=='1'){
 				$str_line .= chr(27);
 				if($explain && ($data < $low_limit || $data > $high_limit)){
 					$str_line .= $this->text_colors['red'];
 				} else {
 					$str_line .= $bar_color;
 				}
-				for($i = 0; $i < $this->bar_width-1; $i++){
+				for($i = 0; $i < $bar_width-1; $i++){
 					$str_line .= $this->Full_block;
 				}
 				//Quadrant_lower_left
 				$str_line .= $this->Left_half_block;
 				$str_line .= chr(27).'[0m';
 			} else {
-				if($this->graph_length-1 == $id_line && in_array($key, $this->arr_id_data_visible)){
+				if($graph_length - 1 == $id_line && in_array($key, $this->arr_id_data_visible)){
 					// We need to draw someting to show the value exists, unless is 0
-					for($i = 0; $i < $this->bar_width-1; $i++){
+					for($i = 0; $i < $bar_width-1; $i++){
 						$str_line .= $this->Lower_half_block;
 					}
 					$str_line .= $this->Lower_half_block; //$this->Quadrant_lower_left; // dont work ????
 				} else {
-					for($i = 0; $i < $this->bar_width; $i++){
+					for($i = 0; $i < $bar_width; $i++){
 						$str_line .= $chr_underlines; // Fill with graph char code of ' '
 					}
 				}
@@ -772,18 +640,18 @@ class cli_graph_ml
 		// Axis X Title
 		$show_y_axis_title = $this->config['show_y_axis_title'];
 		if($show_y_axis_title){
-			$str_pad_axis_y_title = str_pad($this->config['y_axis_title'], $this->graph_length, ' ', STR_PAD_BOTH);
+			$str_pad_axis_y_title = str_pad($this->config['y_axis_title'], $this->config['graph_length'], ' ', STR_PAD_BOTH);
 		}
 
 		$str_padding_left = str_repeat(' ', $this->config['padding_left']);
 		$chr_border_left = $this->border_chars[$this->config['border_chars']]['left'];
-		$y_blocks = ($this->max_value - $this->min_value) / $this->graph_length;
+		$y_blocks = ($this->max_value - $this->min_value) / $this->config['graph_length'];
 		$max_y_length = strlen(strval($this->max_value));
 		// if is <10, we need to add 1 decimal. Then the strlen is added with decimal separator and one number
 		$val_diff_single_digit = ($this->max_value - $this->min_value) < 10;
 		($val_diff_single_digit) AND $max_y_length += 2;
 
-		for($i = 0; $i < $this->graph_length; $i++){
+		for($i = 0; $i < $this->config['graph_length']; $i++){
 			$value_y = $this->max_value - $y_blocks * $i;
 			$value_y = ($val_diff_single_digit) ? number_format($value_y, 1, '.', '') : (int)$value_y;
 			$value_y = str_pad($value_y, $max_y_length, ' ', STR_PAD_LEFT);
@@ -807,7 +675,7 @@ class cli_graph_ml
 		}
 
 		// Explain Values
-		if($this->config['explain_values']){
+		if($this->config['explain_values'] || $this->config['explain_values_same_line']){
 			$this->print_explain($avg, $std, $high_limit, $low_limit);
 		}
 

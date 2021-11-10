@@ -48,7 +48,7 @@ $arr_val_example_1 = [  1,2,5,6,7,9,12,15,18,19,38 ];
 $axis_x_values = [ 'Jan', 'Jun', 'Dec' ];
 
 $bar_graph = new cli_graph_ml( $arr_val_example_1, $axis_x_values, $config );
-$bar_graph->set_title( 'Months in %' );
+$bar_graph->set_config(['title' => 'Months in %']);
 
 // Draw with defaults
 echo 'Defaults Bar Graph'.PHP_EOL;
@@ -60,7 +60,7 @@ $bar_width = 2;
 echo 'Bar Width '.$bar_width.PHP_EOL;
 $bar_graph->set_bar_width( $bar_width );
 $bar_graph->set_bar_color( 'blue' );
-$bar_graph->set_explain_values_same_line( true );
+$bar_graph->set_config(['explain_values_same_line' => true]);
 $bar_graph->draw();
 
 
@@ -68,9 +68,11 @@ $bar_graph->draw();
 $bar_width *= 2;
 echo 'Bar Width '.$bar_width.PHP_EOL;
 $bar_graph->set_bar_width( $bar_width );
-$bar_graph->set_explain_values( false );
 $bar_graph->set_bar_color( 'magenta' );
-$bar_graph->set_underlines_every( 2 );
+$bar_graph->set_config([
+	'underlines_every' => 2,
+	'explain_values' => false
+	]);
 $bar_graph->draw();
 
 
@@ -78,21 +80,25 @@ $bar_graph->draw();
 $bar_width *= 2;
 echo 'Bar Width '.$bar_width.PHP_EOL;
 $bar_graph->set_bar_width( $bar_width );
-$bar_graph->set_explain_values( true );
 $bar_graph->set_bar_color( 'yellow' );
-$bar_graph->set_underlines_every( 3 );
+$bar_graph->set_config([
+	'underlines_every' => 3,
+	'explain_values' => true
+	]);
 $bar_graph->draw();
 
 // Draw without underlines, Graph Lenght 20 & with bar width 16
 $bar_width *= 2;
 echo 'Remove underlines'.PHP_EOL;
 $bar_graph->set_bar_width( $bar_width );
-$bar_graph->set_draw_underlines( false );
 $bar_graph->set_bar_color( 'green' );
-$bar_graph->set_graph_length( 20 );
+$bar_graph->set_config([
+	'graph_length' => 20,
+	'draw_underlines' => false
+	]);
 $bar_graph->draw();
 
-unset( $bar_graph );
+unset($bar_graph);
 
 // draw 3 graphs floating
 $arr_val_example_2 = [  7,7,6,3,5,8,0,10,8,9,3 ];
@@ -102,13 +108,13 @@ $axis_x_values = [ 'Jan', 'Jun', 'Dec' ];
 $bar_graph = [];
 
 $bar_graph[] = new cli_graph_ml( $arr_val_example_1, $axis_x_values, $config );
-$bar_graph[0]->set_title( 'Months 1 in %' );
+$bar_graph[0]->set_config(['title', 'Months 1 in %']);
 
 $bar_graph[] = new cli_graph_ml( $arr_val_example_2, $axis_x_values, $config );
-$bar_graph[1]->set_title( 'Months 2 in %' );
+$bar_graph[1]->set_config(['title', 'Months 2 in %']);
 
 $bar_graph[] = new cli_graph_ml( $arr_val_example_3, $axis_x_values, $config );
-$bar_graph[2]->set_title( 'Months 3 in %' );
+$bar_graph[2]->set_config(['title', 'Months 3 in %']);
 
 // Prepare on each graph
 foreach( $bar_graph as $graph){
