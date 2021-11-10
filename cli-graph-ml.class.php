@@ -296,10 +296,10 @@ class cli_graph_ml
 
 	public function __construct($data = null, array $axis_x_values = [], array $config = [])
 	{
-		(!empty($config)) AND $this->set_config($config);
+		$this->set_config($config);
 
-		$this->graph_length = $this->get_cfg_param('graph_length');
-		$this->bar_width = $this->get_cfg_param('bar_width');
+		$this->graph_length = $this->config['graph_length'];
+		$this->bar_width = $this->config['bar_width'];
 
 		(!is_null($data)) AND $this->set_data($data);
 		(!empty($axis_x_values)) AND $this->set_axis_x_values($axis_x_values);
@@ -562,17 +562,7 @@ class cli_graph_ml
 	 */
 	public function set_config(array $config)
 	{
-		$this->config = $config;
-	}
-
-	/**
-	 * Get Config PARAM
-	 * @param string $param
-	 * @return string $param
-	 */
-	private function get_cfg_param(string $param)
-	{
-		return (isset($this->config[$param])) ? $this->config[$param] : $this->default_cfg[$param];
+		$this->config = array_merge($this->default_cfg, $config);
 	}
 
 	/**
@@ -581,7 +571,7 @@ class cli_graph_ml
 	 */
 	private function get_down_border()
 	{
-		$border_cfg = $this->border_chars[$this->get_cfg_param('border_chars')];
+		$border_cfg = $this->border_chars[$this->config['border_chars']];
 
 		$chr_corner = html_entity_decode($border_cfg['bottom-left'], ENT_NOQUOTES, 'UTF-8');
 		$chr_line   = html_entity_decode($border_cfg['bottom'], ENT_NOQUOTES, 'UTF-8');
@@ -635,9 +625,9 @@ class cli_graph_ml
 	private function get_graph_line($id_line, $low_limit, $high_limit)
 	{
 		$str_line = '';
-		$explain = $this->get_cfg_param('explain_values');
-		$bar_color = $this->text_colors[$this->get_cfg_param('bar_color')];
-		$chr_underlines = ($this->get_cfg_param('draw_underlines') && (($id_line+1) % $this->get_cfg_param('underlines_every') == 0)) ? '_' : ' ';
+		$explain = $this->config['explain_values'];
+		$bar_color = $this->text_colors[$this->config['bar_color']];
+		$chr_underlines = ($this->config['draw_underlines'] && (($id_line+1) % $this->config['underlines_every'] == 0)) ? '_' : ' ';
 		
 		foreach($this->data as $key => $data){
 			if($this->arr_prepare_output[$key][$this->graph_length-$id_line-1]=='1'){
@@ -678,11 +668,11 @@ class cli_graph_ml
 
 		// Blank char for title Axis Y
 		// One space for the title & other for separate from 'Axis Y' values
-		$str_char_title_y = ($this->get_cfg_param('show_y_axis_title')) ? '  ' : ''; 
-		$str_padding_left = str_repeat(' ', $this->get_cfg_param('padding_left'));
+		$str_char_title_y = ($this->config['show_y_axis_title']) ? '  ' : ''; 
+		$str_padding_left = str_repeat(' ', $this->config['padding_left']);
 
 		$this->padding_left = $str_padding_left.$str_char_title_y.$str_blank_left_values;
-		$this->padding_right = str_repeat(' ', $this->get_cfg_param('padding_right'));
+		$this->padding_right = str_repeat(' ', $this->config['padding_right']);
 	}
 
 	private function line_format($string, $add_left = '')
@@ -739,7 +729,7 @@ class cli_graph_ml
 			'O v Lim '.number_format($low_limit, 2, '.', '')
 		];
 
-		if($this->get_cfg_param('explain_values_same_line')){
+		if($this->config['explain_values_same_line']){
 			// For compatibility with other functions, we need to cut the line if overrides de width capacity
 			$str_cutted = str_pad(implode(', ', $arr_explain), $this->data_width + 2, ' ', STR_PAD_RIGHT);
 			if(strlen($str_cutted) > $this->data_width + 2){
@@ -767,28 +757,26 @@ class cli_graph_ml
 		$this->prepare_graph_lines();
 
 		// Padding Top
-		$padding_top = $this->get_cfg_param('padding_top');
-		for($i = $padding_top; $i > 0; $i--){
+		for($i = $this->config['padding_top']; $i > 0; $i--){
 			$this->line_format($this->default_padded(''));
 		}
 		// Graph Title
-		$this->line_format($this->default_padded($this->get_cfg_param('title')));
+		$this->line_format($this->default_padded($this->config['title']));
 
 		// Down border line
-		$draw_underlines = $this->get_cfg_param('draw_underlines');
+		$draw_underlines = $this->config['draw_underlines'];
 		if($draw_underlines){
 			$this->line_format($this->get_up_border());
 		}
 
 		// Axis X Title
-		$show_y_axis_title = $this->get_cfg_param('show_y_axis_title');
+		$show_y_axis_title = $this->config['show_y_axis_title'];
 		if($show_y_axis_title){
-			$str_pad_axis_y_title = str_pad($this->get_cfg_param('y_axis_title'), $this->graph_length, ' ', STR_PAD_BOTH);
+			$str_pad_axis_y_title = str_pad($this->config['y_axis_title'], $this->graph_length, ' ', STR_PAD_BOTH);
 		}
 
-		$underlines_every = $this->get_cfg_param('underlines_every');
-		$str_padding_left = str_repeat(' ', $this->get_cfg_param('padding_left'));
-		$chr_border_left = $this->border_chars[$this->get_cfg_param('border_chars')]['left'];
+		$str_padding_left = str_repeat(' ', $this->config['padding_left']);
+		$chr_border_left = $this->border_chars[$this->config['border_chars']]['left'];
 		$y_blocks = ($this->max_value - $this->min_value) / $this->graph_length;
 		$max_y_length = strlen(strval($this->max_value));
 		// if is <10, we need to add 1 decimal. Then the strlen is added with decimal separator and one number
@@ -800,7 +788,7 @@ class cli_graph_ml
 			$value_y = ($val_diff_single_digit) ? number_format($value_y, 1, '.', '') : (int)$value_y;
 			$value_y = str_pad($value_y, $max_y_length, ' ', STR_PAD_LEFT);
 			$str_char_title_y_loop = ($show_y_axis_title) ? $str_pad_axis_y_title[$i].' ' : '';
-			$chr_underlines = ($draw_underlines && (($i + 1) % $underlines_every == 0)) ? '_' : ' ';
+			$chr_underlines = ($draw_underlines && (($i + 1) % $this->config['underlines_every'] == 0)) ? '_' : ' ';
 			$this->line_format_custom($str_padding_left.$str_char_title_y_loop.$value_y.$chr_border_left, $chr_underlines.$this->get_graph_line($i, $low_limit, $high_limit).$chr_underlines);
 		}
 
@@ -813,18 +801,18 @@ class cli_graph_ml
 		$this->line_format(" ".$this->justify($this->axis_x_values));
 
 		// Axis X Title
-		if($this->get_cfg_param('show_x_axis_title')){
+		if($this->config['show_x_axis_title']){
 			// +1 = vertical col axis separator, +2 = free space left and right
-			$this->line_format($this->default_padded($this->get_cfg_param('x_axis_title')));
+			$this->line_format($this->default_padded($this->config['x_axis_title']));
 		}
 
 		// Explain Values
-		if($this->get_cfg_param('explain_values')){
+		if($this->config['explain_values']){
 			$this->print_explain($avg, $std, $high_limit, $low_limit);
 		}
 
 		// Padding Bottom
-		$padding_bottom = $this->get_cfg_param('padding_bottom');
+		$padding_bottom = $this->config['padding_bottom'];
 		for($i = $padding_bottom; $i > 0; $i--){
 			 // +1 = vertical col axis separator, +2 = free space left and right
 			$this->line_format($this->default_padded(''));
