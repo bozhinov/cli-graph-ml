@@ -302,37 +302,37 @@ class cli_graph_ml
 			$this->text_colors = $this->text_colors_win32;
 		}
 
-		$this->Upper_half_block                                     = html_entity_decode('▀', ENT_NOQUOTES, 'UTF-8');
-		$this->Lower_one_eighth_block                               = html_entity_decode('▁', ENT_NOQUOTES, 'UTF-8');
-		$this->Lower_one_quarter_block                              = html_entity_decode('▂', ENT_NOQUOTES, 'UTF-8');
-		$this->Lower_three_eighths_block                            = html_entity_decode('▃', ENT_NOQUOTES, 'UTF-8');
-		$this->Lower_half_block                                     = html_entity_decode('▄', ENT_NOQUOTES, 'UTF-8');
-		$this->Lower_five_eighths_block                             = html_entity_decode('▅', ENT_NOQUOTES, 'UTF-8');
-		$this->Lower_three_quarters_block                           = html_entity_decode('▆', ENT_NOQUOTES, 'UTF-8');
-		$this->Lower_seven_eighths_block                            = html_entity_decode('▇', ENT_NOQUOTES, 'UTF-8');
-		$this->Full_block                                           = html_entity_decode('█', ENT_NOQUOTES, 'UTF-8');
-		$this->Left_seven_eighths_block                             = html_entity_decode('▉', ENT_NOQUOTES, 'UTF-8');
-		$this->Left_three_quarters_block                            = html_entity_decode('▊', ENT_NOQUOTES, 'UTF-8');
-		$this->Left_five_eighths_block                              = html_entity_decode('▋', ENT_NOQUOTES, 'UTF-8');
-		$this->Left_half_block                                      = html_entity_decode('▌', ENT_NOQUOTES, 'UTF-8');
-		$this->Left_three_eighths_block                             = html_entity_decode('▍', ENT_NOQUOTES, 'UTF-8');
-		$this->Left_one_quarter_block                               = html_entity_decode('▎', ENT_NOQUOTES, 'UTF-8');
-		$this->Left_one_eighth_block                                = html_entity_decode('▏', ENT_NOQUOTES, 'UTF-8');
-		$this->Right_half_block                                     = html_entity_decode('▐', ENT_NOQUOTES, 'UTF-8');
-		$this->Light_shade                                          = html_entity_decode('░', ENT_NOQUOTES, 'UTF-8');
-		$this->Medium_shade                                         = html_entity_decode('▒', ENT_NOQUOTES, 'UTF-8');
-		$this->Upper_one_eighth_block                               = html_entity_decode('▔', ENT_NOQUOTES, 'UTF-8');
-		$this->Right_one_eighth_block                               = html_entity_decode('▕', ENT_NOQUOTES, 'UTF-8');
-		$this->Quadrant_lower_left                                  = html_entity_decode('▖', ENT_NOQUOTES, 'UTF-8');
-		$this->Quadrant_lower_right                                 = html_entity_decode('▗', ENT_NOQUOTES, 'UTF-8');
-		$this->Quadrant_upper_left                                  = html_entity_decode('▘', ENT_NOQUOTES, 'UTF-8');
-		$this->Quadrant_upper_left_and_lower_left_and_lower_right   = html_entity_decode('▙', ENT_NOQUOTES, 'UTF-8');
-		$this->Quadrant_upper_left_and_lower_right                  = html_entity_decode('▚', ENT_NOQUOTES, 'UTF-8');
-		$this->Quadrant_upper_left_and_upper_right_and_lower_left   = html_entity_decode('▛', ENT_NOQUOTES, 'UTF-8');
-		$this->Quadrant_upper_left_and_upper_right_and_lower_right  = html_entity_decode('▜', ENT_NOQUOTES, 'UTF-8');
-		$this->Quadrant_upper_right                                 = html_entity_decode('▝', ENT_NOQUOTES, 'UTF-8');
-		$this->Quadrant_upper_right_and_lower_left                  = html_entity_decode('▞', ENT_NOQUOTES, 'UTF-8');
-		$this->Quadrant_upper_right_and_lower_left_and_lower_right  = html_entity_decode('▟', ENT_NOQUOTES, 'UTF-8');
+		$this->Upper_half_block                                     = "\xe2\x96\x80";
+		$this->Lower_one_eighth_block                               = "\xe2\x96\x81";
+		$this->Lower_one_quarter_block                              = "\xe2\x96\x82";
+		$this->Lower_three_eighths_block                            = "\xe2\x96\x83";
+		$this->Lower_half_block                                     = "\xe2\x96\x84";
+		$this->Lower_five_eighths_block                             = "\xe2\x96\x85";
+		$this->Lower_three_quarters_block                           = "\xe2\x96\x86";
+		$this->Lower_seven_eighths_block                            = "\xe2\x96\x87";
+		$this->Full_block                                           = "\xe2\x96\x88";
+		$this->Left_seven_eighths_block                             = "\xe2\x96\x89";
+		$this->Left_three_quarters_block                            = "\xe2\x96\x8a";
+		$this->Left_five_eighths_block                              = "\xe2\x96\x8b";
+		$this->Left_half_block                                      = "\xe2\x96\x8c";
+		$this->Left_three_eighths_block                             = "\xe2\x96\x8d";
+		$this->Left_one_quarter_block                               = "\xe2\x96\x8e";
+		$this->Left_one_eighth_block                                = "\xe2\x96\x8f";
+		$this->Right_half_block                                     = "\xe2\x96\x90";
+		$this->Light_shade                                          = "\xe2\x96\x91";
+		$this->Medium_shade                                         = "\xe2\x96\x92";
+		$this->Upper_one_eighth_block                               = "\xe2\x96\x94";
+		$this->Right_one_eighth_block                               = "\xe2\x96\x95";
+		$this->Quadrant_lower_left                                  = "\xe2\x96\x96";
+		$this->Quadrant_lower_right                                 = "\xe2\x96\x97";
+		$this->Quadrant_upper_left                                  = "\xe2\x96\x98";
+		$this->Quadrant_upper_left_and_lower_left_and_lower_right   = "\xe2\x96\x99";
+		$this->Quadrant_upper_left_and_lower_right                  = "\xe2\x96\x9a";
+		$this->Quadrant_upper_left_and_upper_right_and_lower_left   = "\xe2\x96\x9b";
+		$this->Quadrant_upper_left_and_upper_right_and_lower_right  = "\xe2\x96\x9c";
+		$this->Quadrant_upper_right                                 = "\xe2\x96\x9d";
+		$this->Quadrant_upper_right_and_lower_left                  = "\xe2\x96\x9e";
+		$this->Quadrant_upper_right_and_lower_left_and_lower_right  = "\xe2\x96\x9f";
 	}
 
 	/**
@@ -490,8 +490,7 @@ class cli_graph_ml
 			} else {
 				if($graph_length - 1 == $id_line && in_array($key, $this->arr_id_data_visible)){
 					// We need to draw someting to show the value exists, unless is 0
-					$str_line .= str_repeat($this->Lower_half_block, $bar_width-1);
-					$str_line .= $this->Lower_half_block; //$this->Quadrant_lower_left; // dont work ????
+					$str_line .= str_repeat($this->Lower_half_block, $bar_width);
 				} else {
 					$str_line .= str_repeat($chr_underlines, $bar_width);  // Fill with graph char code of ' '
 				}
