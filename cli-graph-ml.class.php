@@ -297,8 +297,8 @@ class cli_graph_ml
 		$this->config = array_merge($this->default_cfg, $config);
 
 		(!is_null($data)) AND $this->set_data($data);
-		(!empty($axis_x_values)) AND $this->set_axis_x_values($axis_x_values);
-		
+		(!empty($axis_x_values)) AND $this->axis_x_values = $axis_x_values;
+
 		if (PHP_OS_FAMILY === "Windows") { # PHP 7.2+
 			$this->text_colors = $this->text_colors_win32;
 		}
@@ -388,15 +388,6 @@ class cli_graph_ml
 		$this->config['right_padding'] = $padding;
 		$this->config['top_padding'] = $padding;
 		$this->config['bottom_padding'] = $padding;
-	}
-
-	/**
-	 * Set AXIS X VALUES
-	 * @param array $axis_x_values
-	 */
-	public function set_axis_x_values(array $axis_x_values)
-	{
-		$this->axis_x_values = $axis_x_values;
 	}
 
 	/**
