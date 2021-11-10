@@ -473,7 +473,7 @@ class cli_graph_ml
 		$graph_length = $this->config['graph_length'];
 		$bar_color = $this->text_colors[$this->config['bar_color']];
 		$chr_underlines = ($this->config['draw_underlines'] && (($id_line+1) % $this->config['underlines_every'] == 0)) ? '_' : ' ';
-		
+
 		foreach($this->data as $key => $data){
 			if($this->arr_prepare_output[$key][$graph_length - $id_line-1]=='1'){
 				$str_line .= chr(27);
@@ -674,21 +674,23 @@ class cli_graph_ml
 	}
 
 	/**
-	 * Draw Graph
-	 * You can draw only 1 line id by $line_id
+	 * Draw only 1 line id by $line_id
 	 * @param integer $line_id
-	 * @param boolean $do_line_break
 	 */
-	public function draw($line_id = null)
+	public function draw_line(int $id)
+	{
+		echo $this->arr_output[$id];
+	}
+
+	/**
+	 * Draw Graph
+	 */
+	public function draw()
 	{
 		$this->prepare_array_output();
 
-		if(is_null($line_id)){
-			foreach($this->arr_output as $output_line){
-				echo $output_line.PHP_EOL;
-			}
-		} else {
-			echo $this->arr_output[$line_id];
+		foreach($this->arr_output as $output_line){
+			echo $output_line.PHP_EOL;
 		}
 	}
 
