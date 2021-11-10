@@ -415,6 +415,26 @@ class cli_graph_ml
 	}
 
 	/**
+	 * Justify axis values
+	 */
+	private function justify(array $vals, int $offset = 0)
+	{
+		$limit = $this->data_width + 4 + $offset;
+		$s = trim(implode(" ", $vals));
+		$l = strlen($s);
+
+		if($l >= $limit){
+			$ret = wordwrap($s, $limit);
+		} else {
+			$c = count($vals) - 1;
+			$h = ceil(($limit - $l) / $c);
+			$ret = str_replace(' ', str_repeat(' ', $h), $s);
+		}
+
+		return $ret;
+	}
+
+	/**
 	 * Prepare Graph Lines
 	 */
 	private function prepare_graph_lines()
@@ -682,25 +702,5 @@ class cli_graph_ml
 		foreach($this->arr_output as $output_line){
 			echo $output_line.PHP_EOL;
 		}
-	}
-
-	/**
-	 * Justify axis values
-	 */
-	private function justify(array $vals, int $offset = 0)
-	{
-		$limit = $this->data_width + 4 + $offset;
-		$s = trim(implode(" ", $vals));
-		$l = strlen($s);
-
-		if($l >= $limit){
-			$ret = wordwrap($s, $limit);
-		} else {
-			$c = count($vals) - 1;
-			$h = ceil(($limit - $l) / $c);
-			$ret = str_replace(' ', str_repeat(' ', $h), $s);
-		}
-
-		return $ret;
 	}
 }
