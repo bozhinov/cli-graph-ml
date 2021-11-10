@@ -694,18 +694,16 @@ class cli_graph_ml
 	 * @param integer $line_id
 	 * @param boolean $do_line_break
 	 */
-	public function draw($line_id = null, $do_line_break = true)
+	public function draw($line_id = null)
 	{
 		$this->prepare_array_output();
 
 		if(is_null($line_id)){
 			foreach($this->arr_output as $output_line){
-				echo $output_line;
-				if ($do_line_break) echo PHP_EOL;
+				echo $output_line.PHP_EOL;
 			}
 		} else {
 			echo $this->arr_output[$line_id];
-			if ($do_line_break) echo PHP_EOL;
 		}
 	}
 

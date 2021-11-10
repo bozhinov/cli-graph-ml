@@ -116,7 +116,7 @@ $count_output_lines = $bar_graph[0]->predict_line_count();
 
 for($i = 0; $i < $count_output_lines; $i++){
 	foreach($bar_graph as $graph){
-		$graph->draw($i, false); // Draw line $i, dont do line break
+		$graph->draw($i); // Draw line $i, dont do line break
 	}
 	echo PHP_EOL; // for get new line
 }
