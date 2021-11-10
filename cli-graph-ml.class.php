@@ -90,38 +90,6 @@ ini_set('default_charset', 'UTF-8');
 
 class cli_graph_ml
 {
-	private $Upper_half_block;
-	private $Lower_one_eighth_block;
-	private $Lower_one_quarter_block;
-	private $Lower_three_eighths_block;
-	private $Lower_half_block;
-	private $Lower_five_eighths_block;
-	private $Lower_three_quarters_block;
-	private $Lower_seven_eighths_block;
-	private $Full_block;
-	private $Left_seven_eighths_block;
-	private $Left_three_quarters_block;
-	private $Left_five_eighths_block;
-	private $Left_half_block;
-	private $Left_three_eighths_block;
-	private $Left_one_quarter_block;
-	private $Left_one_eighth_block;
-	private $Right_half_block;
-	private $Light_shade;
-	private $Medium_shade;
-	private $Upper_one_eighth_block;
-	private $Right_one_eighth_block;
-	private $Quadrant_lower_left;
-	private $Quadrant_lower_right;
-	private $Quadrant_upper_left;
-	private $Quadrant_upper_left_and_lower_left_and_lower_right;
-	private $Quadrant_upper_left_and_lower_right;
-	private $Quadrant_upper_left_and_upper_right_and_lower_left;
-	private $Quadrant_upper_left_and_upper_right_and_lower_right;
-	private $Quadrant_upper_right;
-	private $Quadrant_upper_right_and_lower_left;
-	private $Quadrant_upper_right_and_lower_left_and_lower_right;
-
 	/**
 	 * Border Characters
 	 * see: https://unicode-table.com/en/blocks/box-drawing/
@@ -277,6 +245,40 @@ class cli_graph_ml
 		'outlier_factor' => 2
 	];
 
+	private $blocks = [
+		'Upper_half_block'                                     => "\xe2\x96\x80",
+		'Lower_one_eighth_block'                               => "\xe2\x96\x81",
+		'Lower_one_quarter_block'                              => "\xe2\x96\x82",
+		'Lower_three_eighths_block'                            => "\xe2\x96\x83",
+		'Lower_half_block'                                     => "\xe2\x96\x84",
+		'Lower_five_eighths_block'                             => "\xe2\x96\x85",
+		'Lower_three_quarters_block'                           => "\xe2\x96\x86",
+		'Lower_seven_eighths_block'                            => "\xe2\x96\x87",
+		'Full_block'                                           => "\xe2\x96\x88",
+		'Left_seven_eighths_block'                             => "\xe2\x96\x89",
+		'Left_three_quarters_block'                            => "\xe2\x96\x8a",
+		'Left_five_eighths_block'                              => "\xe2\x96\x8b",
+		'Left_half_block'                                      => "\xe2\x96\x8c",
+		'Left_three_eighths_block'                             => "\xe2\x96\x8d",
+		'Left_one_quarter_block'                               => "\xe2\x96\x8e",
+		'Left_one_eighth_block'                                => "\xe2\x96\x8f",
+		'Right_half_block'                                     => "\xe2\x96\x90",
+		'Light_shade'                                          => "\xe2\x96\x91",
+		'Medium_shade'                                         => "\xe2\x96\x92",
+		'Upper_one_eighth_block'                               => "\xe2\x96\x94",
+		'Right_one_eighth_block'                               => "\xe2\x96\x95",
+		'Quadrant_lower_left'                                  => "\xe2\x96\x96",
+		'Quadrant_lower_right'                                 => "\xe2\x96\x97",
+		'Quadrant_upper_left'                                  => "\xe2\x96\x98",
+		'Quadrant_upper_left_and_lower_left_and_lower_right'   => "\xe2\x96\x99",
+		'Quadrant_upper_left_and_lower_right'                  => "\xe2\x96\x9a",
+		'Quadrant_upper_left_and_upper_right_and_lower_left'   => "\xe2\x96\x9b",
+		'Quadrant_upper_left_and_upper_right_and_lower_right'  => "\xe2\x96\x9c",
+		'Quadrant_upper_right'                                 => "\xe2\x96\x9d",
+		'Quadrant_upper_right_and_lower_left'                  => "\xe2\x96\x9e",
+		'Quadrant_upper_right_and_lower_left_and_lower_right'  => "\xe2\x96\x9f"
+	];
+
 	private $data = [];
 	private $config = [];
 	private $count_data;
@@ -301,38 +303,6 @@ class cli_graph_ml
 		if (PHP_OS_FAMILY === "Windows") { # PHP 7.2+
 			$this->text_colors = $this->text_colors_win32;
 		}
-
-		$this->Upper_half_block                                     = "\xe2\x96\x80";
-		$this->Lower_one_eighth_block                               = "\xe2\x96\x81";
-		$this->Lower_one_quarter_block                              = "\xe2\x96\x82";
-		$this->Lower_three_eighths_block                            = "\xe2\x96\x83";
-		$this->Lower_half_block                                     = "\xe2\x96\x84";
-		$this->Lower_five_eighths_block                             = "\xe2\x96\x85";
-		$this->Lower_three_quarters_block                           = "\xe2\x96\x86";
-		$this->Lower_seven_eighths_block                            = "\xe2\x96\x87";
-		$this->Full_block                                           = "\xe2\x96\x88";
-		$this->Left_seven_eighths_block                             = "\xe2\x96\x89";
-		$this->Left_three_quarters_block                            = "\xe2\x96\x8a";
-		$this->Left_five_eighths_block                              = "\xe2\x96\x8b";
-		$this->Left_half_block                                      = "\xe2\x96\x8c";
-		$this->Left_three_eighths_block                             = "\xe2\x96\x8d";
-		$this->Left_one_quarter_block                               = "\xe2\x96\x8e";
-		$this->Left_one_eighth_block                                = "\xe2\x96\x8f";
-		$this->Right_half_block                                     = "\xe2\x96\x90";
-		$this->Light_shade                                          = "\xe2\x96\x91";
-		$this->Medium_shade                                         = "\xe2\x96\x92";
-		$this->Upper_one_eighth_block                               = "\xe2\x96\x94";
-		$this->Right_one_eighth_block                               = "\xe2\x96\x95";
-		$this->Quadrant_lower_left                                  = "\xe2\x96\x96";
-		$this->Quadrant_lower_right                                 = "\xe2\x96\x97";
-		$this->Quadrant_upper_left                                  = "\xe2\x96\x98";
-		$this->Quadrant_upper_left_and_lower_left_and_lower_right   = "\xe2\x96\x99";
-		$this->Quadrant_upper_left_and_lower_right                  = "\xe2\x96\x9a";
-		$this->Quadrant_upper_left_and_upper_right_and_lower_left   = "\xe2\x96\x9b";
-		$this->Quadrant_upper_left_and_upper_right_and_lower_right  = "\xe2\x96\x9c";
-		$this->Quadrant_upper_right                                 = "\xe2\x96\x9d";
-		$this->Quadrant_upper_right_and_lower_left                  = "\xe2\x96\x9e";
-		$this->Quadrant_upper_right_and_lower_left_and_lower_right  = "\xe2\x96\x9f";
 	}
 
 	/**
@@ -483,14 +453,14 @@ class cli_graph_ml
 				} else {
 					$str_line .= $bar_color;
 				}
-				$str_line .= str_repeat($this->Full_block, $bar_width-1);
+				$str_line .= str_repeat($this->blocks['Full_block'], $bar_width-1);
 				//Quadrant_lower_left
-				$str_line .= $this->Left_half_block;
+				$str_line .= $this->blocks['Left_half_block'];
 				$str_line .= chr(27).'[0m';
 			} else {
 				if($graph_length - 1 == $id_line && in_array($key, $this->arr_id_data_visible)){
 					// We need to draw someting to show the value exists, unless is 0
-					$str_line .= str_repeat($this->Lower_half_block, $bar_width);
+					$str_line .= str_repeat($this->blocks['Lower_half_block'], $bar_width);
 				} else {
 					$str_line .= str_repeat($chr_underlines, $bar_width);  // Fill with graph char code of ' '
 				}
