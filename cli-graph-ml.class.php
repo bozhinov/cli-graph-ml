@@ -671,7 +671,7 @@ class cli_graph_ml
 		return $str_line;
 	}
 
-	private function prepare_default_append()
+	private function prepare_line_format()
 	{
 		// Blank space of left values
 		$str_blank_left_values = str_repeat(' ', strlen($this->max_value));
@@ -685,12 +685,12 @@ class cli_graph_ml
 		$this->padding_right = str_repeat(' ', $this->get_cfg_param('padding_right'));
 	}
 
-	private function default_append($string)
+	private function line_format($string, $add_left = '')
 	{
-		 $this->arr_output[] = $this->padding_left.$string.$this->padding_right;
+		 $this->arr_output[] = $this->padding_left.$add_left.$string.$this->padding_right;
 	}
 
-	private function custom_left_append($left, $string)
+	private function line_format_custom($left, $string)
 	{
 		$this->arr_output[] = $left.$string.$this->padding_right;
 	}
@@ -746,10 +746,10 @@ class cli_graph_ml
 				$str_cutted = substr($str_cutted, 0, $this->data_width + 1);
 				$str_cutted .= chr(27).'[0;31m'.'>'.chr(27).'[0m'.' '; // Indicate that the values continue
 			}
-			$this->default_append(' '.$str_cutted);
+			$this->line_format(' '.$str_cutted);
 		} else {
 			foreach($arr_explain as $explain){
-				$this->default_append(' '.str_pad($explain, $this->data_width + 2, ' ', STR_PAD_RIGHT));
+				$this->line_format(' '.str_pad($explain, $this->data_width + 2, ' ', STR_PAD_RIGHT));
 			}
 		}
 	}
@@ -760,7 +760,7 @@ class cli_graph_ml
 	public function prepare_array_output()
 	{
 		$this->arr_output = [];
-		$this->prepare_default_append();
+		$this->prepare_line_format();
 		list($avg, $std) = $this->calc_average();
 		$high_limit = $avg + $std * $this->outlier_factor;
 		$low_limit = $avg - $std * $this->outlier_factor;
@@ -769,15 +769,15 @@ class cli_graph_ml
 		// Padding Top
 		$padding_top = $this->get_cfg_param('padding_top');
 		for($i = $padding_top; $i > 0; $i--){
-			$this->default_append($this->default_padded(''));
+			$this->line_format($this->default_padded(''));
 		}
 		// Graph Title
-		$this->default_append($this->default_padded($this->get_cfg_param('title')));
+		$this->line_format($this->default_padded($this->get_cfg_param('title')));
 
 		// Down border line
 		$draw_underlines = $this->get_cfg_param('draw_underlines');
 		if($draw_underlines){
-			$this->default_append($this->get_up_border());
+			$this->line_format($this->get_up_border());
 		}
 
 		// Axis X Title
@@ -801,21 +801,21 @@ class cli_graph_ml
 			$value_y = str_pad($value_y, $max_y_length, ' ', STR_PAD_LEFT);
 			$str_char_title_y_loop = ($show_y_axis_title) ? $str_pad_axis_y_title[$i].' ' : '';
 			$chr_underlines = ($draw_underlines && (($i + 1) % $underlines_every == 0)) ? '_' : ' ';
-			$this->custom_left_append($str_padding_left.$str_char_title_y_loop.$value_y.$chr_border_left, $chr_underlines.$this->get_graph_line($i, $low_limit, $high_limit).$chr_underlines);
+			$this->line_format_custom($str_padding_left.$str_char_title_y_loop.$value_y.$chr_border_left, $chr_underlines.$this->get_graph_line($i, $low_limit, $high_limit).$chr_underlines);
 		}
 
 		// Down border line
-		$this->default_append($this->get_down_border());
+		$this->line_format($this->get_down_border());
 
 		// Axis X Separators |
-		$this->default_append("  ".$this->justify(array_fill(0, count($this->axis_x_values), "|"), -2)." ");
+		$this->line_format("  ".$this->justify(array_fill(0, count($this->axis_x_values), "|"), -2)." ");
 		// Axis X Values
-		$this->default_append(" ".$this->justify($this->axis_x_values));
+		$this->line_format(" ".$this->justify($this->axis_x_values));
 
 		// Axis X Title
 		if($this->get_cfg_param('show_x_axis_title')){
 			// +1 = vertical col axis separator, +2 = free space left and right
-			$this->default_append($this->default_padded($this->get_cfg_param('x_axis_title')));
+			$this->line_format($this->default_padded($this->get_cfg_param('x_axis_title')));
 		}
 
 		// Explain Values
@@ -827,7 +827,7 @@ class cli_graph_ml
 		$padding_bottom = $this->get_cfg_param('padding_bottom');
 		for($i = $padding_bottom; $i > 0; $i--){
 			 // +1 = vertical col axis separator, +2 = free space left and right
-			$this->default_append($this->default_padded(''));
+			$this->line_format($this->default_padded(''));
 		}
 	}
 
