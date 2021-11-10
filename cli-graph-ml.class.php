@@ -600,6 +600,20 @@ class cli_graph_ml
 	}
 
 	/**
+	 * Predict line count
+	 */
+	public function predict_line_count()
+	{
+		$count = $this->config['padding_top'] +  $this->config['graph_length'] + $this->config['padding_bottom'] + 4;
+
+		($this->config['draw_underlines']) AND $count++;
+		($this->config['show_x_axis_title']) AND $count++;
+		($this->config['explain_values'] || $this->config['explain_values_same_line']) AND $count += 9;
+
+		return $count;
+	}
+
+	/**
 	 * Prepare Output in Array
 	 */
 	public function prepare_array_output()
@@ -675,34 +689,20 @@ class cli_graph_ml
 	}
 
 	/**
-	 * Get count(lines) of graph output
-	 * return integer $num_lines
-	 */
-	public function count_output_lines()
-	{
-		return count($this->arr_output);
-	}
-
-	/**
 	 * Draw Graph
 	 * You can draw only 1 line id by $line_id
-	 * Combine it with $do_line_break = false &, $prepare_array_output = true to prepare 1 time externally & write in each line more than 1 graphs. See example.php
 	 * @param integer $line_id
 	 * @param boolean $do_line_break
-	 * @param boolean $prepare_array_output
 	 */
-	public function draw($line_id = null, $do_line_break = true, $prepare_array_output = true)
+	public function draw($line_id = null, $do_line_break = true)
 	{
-		if($prepare_array_output){
-			$this->prepare_array_output();
-		}
+		$this->prepare_array_output();
 
 		if(is_null($line_id)){
 			foreach($this->arr_output as $output_line){
 				echo $output_line;
 				if ($do_line_break) echo PHP_EOL;
 			}
-
 		} else {
 			echo $this->arr_output[$line_id];
 			if ($do_line_break) echo PHP_EOL;

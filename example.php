@@ -18,7 +18,7 @@
  * 
  */
 
-require_once( 'cli-graph-ml.class.php' );
+require_once('cli-graph-ml.class.php');
 
  /* You can define a custom $config
  $config = [
@@ -46,7 +46,7 @@ require_once( 'cli-graph-ml.class.php' );
 $arr_val_example_1 = [1,2,5,6,7,9,12,15,18,19,38];
 $axis_x_values = ['Jan', 'Jun', 'Dec'];
 
-$bar_graph = new cli_graph_ml( $arr_val_example_1, $axis_x_values, $config );
+$bar_graph = new cli_graph_ml($arr_val_example_1, $axis_x_values, $config);
 $bar_graph->set_config(['title' => 'Months in %']);
 
 // Draw with defaults
@@ -99,28 +99,24 @@ $bar_graph->draw();
 unset($bar_graph);
 
 // draw 3 graphs floating
-$arr_val_example_2 = [  7,7,6,3,5,8,0,10,8,9,3 ];
-$arr_val_example_3 = [  11,22,55,60,70,90,120,150,180,190,380 ];
-$axis_x_values = [ 'Jan', 'Jun', 'Dec' ];
+$arr_val_example_2 = [7,7,6,3,5,8,0,10,8,9,3];
+$arr_val_example_3 = [11,22,55,60,70,90,120,150,180,190,380];
+$axis_x_values = ['Jan', 'Jun', 'Dec'];
 
 $bar_graph = [
 	new cli_graph_ml($arr_val_example_1, $axis_x_values, ['title', 'Months 1 in %']),
 	new cli_graph_ml($arr_val_example_2, $axis_x_values, ['title', 'Months 2 in %']),
 	new cli_graph_ml($arr_val_example_3, $axis_x_values, ['title', 'Months 3 in %']),
 ];
-// Prepare on each graph
-foreach( $bar_graph as $graph){
-	$graph->prepare_array_output();
-}
 
 // draw on each graph each line
 // IMPORTANT: All graphs will need to have the same number of Lines
 // We take a counter of lines of the first graph. We assume all have the same
-$count_output_lines = $bar_graph[0]->count_output_lines();
+$count_output_lines = $bar_graph[0]->predict_line_count();
 
-for( $i = 0; $i < $count_output_lines; $i++ ){
-	foreach( $bar_graph as $graph){
-		$graph->draw( $i, false, false); // Draw line $i, dont do line break and do not do prepare
+for($i = 0; $i < $count_output_lines; $i++){
+	foreach($bar_graph as $graph){
+		$graph->draw($i, false); // Draw line $i, dont do line break
 	}
 	echo PHP_EOL; // for get new line
 }
