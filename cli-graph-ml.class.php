@@ -601,7 +601,7 @@ class cli_graph_ml
 	/**
 	 * Prepare Output in Array
 	 */
-	public function prepare_array_output()
+	public function prepare_output()
 	{
 		$this->arr_output = [];
 		$this->data_width = $this->count_data * $this->config['bar_width']; // just in case bar_width was changed
@@ -697,7 +697,7 @@ class cli_graph_ml
 	 */
 	public function draw()
 	{
-		$this->prepare_array_output();
+		$this->prepare_output();
 
 		foreach($this->arr_output as $output_line){
 			echo $output_line.PHP_EOL;

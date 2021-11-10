@@ -112,7 +112,7 @@ $bar_graph = [
 
 // Prepare on each graph
 foreach($bar_graph as $graph){
-	$graph->prepare_array_output();
+	$graph->prepare_output();
 }
 
 // draw on each graph each line
