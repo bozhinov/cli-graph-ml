@@ -56,8 +56,8 @@ $bar_graph->draw();
 // Draw with bar width 2
 $bar_width = 2;
 echo 'Bar Width '.$bar_width.PHP_EOL;
-$bar_graph->set_bar_width( $bar_width );
 $bar_graph->set_config([
+	'bar_width' => $bar_width,
 	'explain_values_same_line' => true,
 	'bar_color' => 'blue'
 	]);
@@ -66,8 +66,8 @@ $bar_graph->draw();
 // Draw with bar width 4
 $bar_width *= 2;
 echo 'Bar Width '.$bar_width.PHP_EOL;
-$bar_graph->set_bar_width( $bar_width );
 $bar_graph->set_config([
+	'bar_width' => $bar_width,
 	'underlines_every' => 2,
 	'explain_values' => false,
 	'bar_color' => 'magenta'
@@ -77,8 +77,8 @@ $bar_graph->draw();
 // Draw with bar width 8
 $bar_width *= 2;
 echo 'Bar Width '.$bar_width.PHP_EOL;
-$bar_graph->set_bar_width( $bar_width );
 $bar_graph->set_config([
+	'bar_width' => $bar_width,
 	'underlines_every' => 3,
 	'explain_values' => true,
 	'bar_color' => 'yellow'
@@ -88,8 +88,8 @@ $bar_graph->draw();
 // Draw without underlines, Graph Lenght 20 & with bar width 16
 $bar_width *= 2;
 echo 'Remove underlines'.PHP_EOL;
-$bar_graph->set_bar_width( $bar_width );
 $bar_graph->set_config([
+	'bar_width' => $bar_width,
 	'graph_length' => 20,
 	'draw_underlines' => false,
 	'bar_color' => 'green'

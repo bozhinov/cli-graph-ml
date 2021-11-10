@@ -391,16 +391,6 @@ class cli_graph_ml
 	}
 
 	/**
-	 * Set BAR WIDTH
-	 * @param integer $bar_width
-	 */
-	public function set_bar_width(int $bar_width = 1)
-	{
-		$this->config['bar_width'] = $bar_width;
-		$this->data_width = $this->count_data * $bar_width;
-	}
-
-	/**
 	 * Set AXIS X VALUES
 	 * @param array $axis_x_values
 	 */
@@ -619,6 +609,7 @@ class cli_graph_ml
 	public function prepare_array_output()
 	{
 		$this->arr_output = [];
+		$this->data_width = $this->count_data * $this->config['bar_width']; // just in case bar_width was changed
 		$this->prepare_line_format();
 		list($avg, $std) = $this->calc_average();
 		$high_limit = $avg + $std * $this->outlier_factor;
