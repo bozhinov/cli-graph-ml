@@ -44,8 +44,8 @@
  $config = [];
  
 
-$arr_val_example_1 = [  1,2,5,6,7,9,12,15,18,19,38 ];
-$axis_x_values = [ 'Jan', 'Jun', 'Dec' ];
+$arr_val_example_1 = [1,2,5,6,7,9,12,15,18,19,38];
+$axis_x_values = ['Jan', 'Jun', 'Dec'];
 
 $bar_graph = new cli_graph_ml( $arr_val_example_1, $axis_x_values, $config );
 $bar_graph->set_config(['title' => 'Months in %']);
@@ -54,13 +54,14 @@ $bar_graph->set_config(['title' => 'Months in %']);
 echo 'Defaults Bar Graph'.PHP_EOL;
 $bar_graph->draw();
 
-
 // Draw with bar width 2
 $bar_width = 2;
 echo 'Bar Width '.$bar_width.PHP_EOL;
 $bar_graph->set_bar_width( $bar_width );
-$bar_graph->set_bar_color( 'blue' );
-$bar_graph->set_config(['explain_values_same_line' => true]);
+$bar_graph->set_config([
+	'explain_values_same_line' => true,
+	'bar_color' => 'blue'
+	]);
 $bar_graph->draw();
 
 
@@ -68,10 +69,10 @@ $bar_graph->draw();
 $bar_width *= 2;
 echo 'Bar Width '.$bar_width.PHP_EOL;
 $bar_graph->set_bar_width( $bar_width );
-$bar_graph->set_bar_color( 'magenta' );
 $bar_graph->set_config([
 	'underlines_every' => 2,
-	'explain_values' => false
+	'explain_values' => false,
+	'bar_color' => 'magenta'
 	]);
 $bar_graph->draw();
 
@@ -80,10 +81,10 @@ $bar_graph->draw();
 $bar_width *= 2;
 echo 'Bar Width '.$bar_width.PHP_EOL;
 $bar_graph->set_bar_width( $bar_width );
-$bar_graph->set_bar_color( 'yellow' );
 $bar_graph->set_config([
 	'underlines_every' => 3,
-	'explain_values' => true
+	'explain_values' => true,
+	'bar_color' => 'yellow'
 	]);
 $bar_graph->draw();
 
@@ -91,10 +92,11 @@ $bar_graph->draw();
 $bar_width *= 2;
 echo 'Remove underlines'.PHP_EOL;
 $bar_graph->set_bar_width( $bar_width );
-$bar_graph->set_bar_color( 'green' );
 $bar_graph->set_config([
+	
 	'graph_length' => 20,
-	'draw_underlines' => false
+	'draw_underlines' => false,
+	'bar_color' => 'green'
 	]);
 $bar_graph->draw();
 

@@ -360,19 +360,6 @@ class cli_graph_ml
 	}
 
 	/**
-	 * Set BAR COLOR
-	 * @param string $bar_color
-	 */
-	public function set_bar_color(string $bar_color = 'lightwhite')
-	{
-		if(array_key_exists($bar_color, $this->text_colors)){
-			$this->config['bar_color'] = $bar_color;
-		} else {
-			throw new Exception('Color not defined');
-		}
-	}
-
-	/**
 	 * Set Outlier Factor
 	 * @param double $outlier_factor
 	 */
