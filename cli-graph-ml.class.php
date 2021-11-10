@@ -354,9 +354,9 @@ class cli_graph_ml
 	 * Array with the id's even the value is 0 and cannot be drawed in graph, but we need to know if there is a min() value in data. Then draw it with Lower_one_eighth_block
 	 * @param array $arr_id_data_visible
 	 */
-	public function set_arr_id_data_visible(bool $arr_id_data_visible)
+	public function add_arr_id_data_visible(int $id)
 	{
-		$this->arr_id_data_visible = $arr_id_data_visible;
+		$this->arr_id_data_visible[] = $id;
 	}
 
 	/**
