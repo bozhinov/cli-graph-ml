@@ -273,7 +273,8 @@ class cli_graph_ml
 		'padding_top' => 1,
 		'padding_bottom' => 1,
 		'explain_values' => true,
-		'explain_values_same_line' => false
+		'explain_values_same_line' => false,
+		'outlier_factor' => 2
 	];
 
 	private $data = [];
@@ -288,8 +289,6 @@ class cli_graph_ml
 	private $max_value;
 	private $min_value;
 	private $arr_prepare_output = [];
-
-	private $outlier_factor = 2;
 	private $arr_id_data_visible = []; // Array with the id's even the value is 0 and cannot be drawed in graph, but we need to know if there is a min() value in data. Then draw it with Lower_one_eighth_block
 
 	public function __construct($data = null, array $axis_x_values = [], array $config = [])
@@ -357,15 +356,6 @@ class cli_graph_ml
 	public function set_arr_id_data_visible(array $ids)
 	{
 		$this->arr_id_data_visible = $ids;
-	}
-
-	/**
-	 * Set Outlier Factor
-	 * @param double $outlier_factor
-	 */
-	public function set_outlier_factor(int $outlier_factor = 2)
-	{
-		$this->outlier_factor = $outlier_factor;
 	}
 
 	/**
@@ -597,8 +587,8 @@ class cli_graph_ml
 		$this->data_width = $this->count_data * $this->config['bar_width']; // just in case bar_width was changed
 		$this->prepare_line_format();
 		list($avg, $std) = $this->calc_average();
-		$high_limit = $avg + $std * $this->outlier_factor;
-		$low_limit = $avg - $std * $this->outlier_factor;
+		$high_limit = $avg + $std * $this->config['outlier_factor'];
+		$low_limit = $avg - $std * $this->config['outlier_factor'];
 		$this->prepare_graph_lines();
 
 		// Padding Top

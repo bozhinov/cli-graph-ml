@@ -21,27 +21,28 @@
 require_once('cli-graph-ml.class.php');
 
  /* You can define a custom $config
- $config = [
-        'graph_length'  => 10,
-        'bar_color'  => 'lightwhite',
-        'title'  => '',
-        'draw_underlines'  => true,
-        'underlines_every'  => 1,
-        'bar_width'  => 1,
-        'show_y_axis_title'  => true,
-        'show_x_axis_title'  => true,
-        'x_axis_title' => 'AXIS X',
-        'y_axis_title' => 'AXIS Y',
-        'padding_left'  => 1,
-        'padding_right'  => 1,
-        'padding_top'  => 1,
-        'padding_bottom'  => 1,
-        'explain_values'  => true,
-        'explain_values_same_line'  => false        
-    ]; // /$default_cfg
+$config = [
+		'graph_length'  => 10,
+		'bar_color'  => 'lightwhite',
+		'title'  => '',
+		'draw_underlines'  => true,
+		'underlines_every'  => 1,
+		'bar_width'  => 1,
+		'show_y_axis_title'  => true,
+		'show_x_axis_title'  => true,
+		'x_axis_title' => 'AXIS X',
+		'y_axis_title' => 'AXIS Y',
+		'padding_left'  => 1,
+		'padding_right'  => 1,
+		'padding_top'  => 1,
+		'padding_bottom'  => 1,
+		'explain_values'  => true,
+		'explain_values_same_line'  => false,
+		'outlier_factor' => 2
+	];
  */
 
- $config = [];
+$config = [];
 
 $arr_val_example_1 = [1,2,5,6,7,9,12,15,18,19,38];
 $axis_x_values = ['Jan', 'Jun', 'Dec'];
