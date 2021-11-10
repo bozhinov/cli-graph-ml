@@ -665,6 +665,15 @@ class cli_graph_ml
 	}
 
 	/**
+	 * Get count(lines) of graph output
+	 * return integer $num_lines
+	 */
+	public function count_output_lines()
+	{
+		return count($this->arr_output);
+	}
+
+	/**
 	 * Draw only 1 line id by $line_id
 	 * @param integer $line_id
 	 */

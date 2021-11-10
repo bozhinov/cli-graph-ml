@@ -117,7 +117,7 @@ foreach($bar_graph as $graph){
 // draw on each graph each line
 // IMPORTANT: All graphs will need to have the same number of Lines
 // We take a counter of lines of the first graph. We assume all have the same
-$count_output_lines = $bar_graph[0]->predict_line_count();
+$count_output_lines = $bar_graph[0]->count_output_lines();
 
 for($i = 0; $i < $count_output_lines; $i++){
 	foreach($bar_graph as $graph){
