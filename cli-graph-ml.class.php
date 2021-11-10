@@ -718,7 +718,7 @@ class cli_graph_ml
 		return [$avg, $std];
 	}
 
-	private function append_explain($avg, $std, $high_limit, $low_limit)
+	private function print_explain($avg, $std, $high_limit, $low_limit)
 	{
 		$sum = $avg * $this->count_data;
 		$arr_sort = $this->data;
@@ -820,7 +820,7 @@ class cli_graph_ml
 
 		// Explain Values
 		if($this->get_cfg_param('explain_values')){
-			$this->append_explain($avg, $std, $high_limit, $low_limit);
+			$this->print_explain($avg, $std, $high_limit, $low_limit);
 		}
 
 		// Padding Bottom
