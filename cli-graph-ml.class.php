@@ -482,23 +482,17 @@ class cli_graph_ml
 				} else {
 					$str_line .= $bar_color;
 				}
-				for($i = 0; $i < $bar_width-1; $i++){
-					$str_line .= $this->Full_block;
-				}
+				$str_line .= str_repeat($this->Full_block, $bar_width-1);
 				//Quadrant_lower_left
 				$str_line .= $this->Left_half_block;
 				$str_line .= chr(27).'[0m';
 			} else {
 				if($graph_length - 1 == $id_line && in_array($key, $this->arr_id_data_visible)){
 					// We need to draw someting to show the value exists, unless is 0
-					for($i = 0; $i < $bar_width-1; $i++){
-						$str_line .= $this->Lower_half_block;
-					}
+					$str_line .= str_repeat($this->Lower_half_block, $bar_width-1);
 					$str_line .= $this->Lower_half_block; //$this->Quadrant_lower_left; // dont work ????
 				} else {
-					for($i = 0; $i < $bar_width; $i++){
-						$str_line .= $chr_underlines; // Fill with graph char code of ' '
-					}
+					$str_line .= str_repeat($chr_underlines, $bar_width);  // Fill with graph char code of ' '
 				}
 			}
 		}
