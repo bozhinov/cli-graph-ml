@@ -64,86 +64,10 @@ Screenshot of custom bar charts in CLI PHP environtment
  
          $arr_val_example_1 = [  1,2,5,6,7,9,12,15,18,19,38 ];
          $axis_x_values = [ 'Jan', 'Jun', 'Dec' ];
-         
-         $bar_graph = new cli_graph_ml( $arr_val_example_1, $axis_x_values );
-         $bar_graph->set_title( 'Months in %' );
-         
-         // Draw with defaults
+         $config = ['title' => 'Months in %'];
+         $bar_graph = new cli_graph_ml( $arr_val_example_1, $axis_x_values , $config);
          $bar_graph->draw();
- 
- 
-# RESUME OF METHODS:
 
-- **CREATE CLI-GRAPH-ML:**
- 
-*$bar_graph= new cli_graph_ml( $arr_val_example_1, $axis_x_values );*
-
-Example:
-
-         $arr_val_example_1 = [  1,2,5,6,7,9,12,15,18,19,38 ];
-         $axis_x_values = [ 'Jan', 'Jun', 'Dec' ];
-         
-         $bar_graph = new cli_graph_ml( $arr_val_example_1, $axis_x_values );
-
-
-- **SHOW 0 VALUES:**
-
-If you need to teach a value 0 to be visible, you can create an array of column id's where to show the value even if it is 0 to be able to visualize it. In this case, if the field should be visible, half a gray box will be shown, indicating that the value is 0, but that there is
-
-*set_arr_id_data_visible( $arr_id_data_visible )*
-
-Example:
-
-	// Show 0 values con cols id[0] & id[3]
-	$arr_id_data_visible = [0, 3];
-        $bar_graph->set_arr_id_data_visible($arr_id_data_visible);
-
-
-        
-- **DRAW:**
-
-You can send the result to the screen with this method
-
-*draw( )*
-
-Example:
-
-        $bar_graph->draw();
-        
-You can draw 1 line of the chart. Is used to concatenate more than 1 chart. See example.php. Then you can set some params more to do it. See example.php for more information and example:
-- $line_id; // Id of the line to be drawed.
-- $do_line_break = false; // Becouse the PHP_EOL will be done at last chart
-- $prepare_array_output = false; // becouse we prepare it previously
-
-Example:
-
-        $bar_graph1->prepare_array_output( );
-        $bar_graph2->prepare_array_output( );
-        $bar_graph3->prepare_array_output( );
-        
-        // Draw Line 0 of each graph
-        $bar_graph1->draw( 0, false, false);
-        $bar_graph2->draw( 0, false, false);
-        $bar_graph3->draw( 0, false, false);
-        
-        echo PHP_EOL; // after 3rth graph
-        
-        // Draw Line 1 of each graph
-        $bar_graph1->draw( 1, false, false);
-        $bar_graph2->draw( 1, false, false);
-        $bar_graph3->draw( 1, false, false);
-        
-        echo PHP_EOL; // after 3rth graph
-        
-        
-        // Draw Line 2 of each graph
-        $bar_graph1->draw( 2, false, false);
-        $bar_graph2->draw( 2, false, false);
-        $bar_graph3->draw( 2, false, false);
-        
-        echo PHP_EOL; // after 3rth graph
-        ......
-        
 - **SET DATA:**
 
 When you create the class, it will be created with $data param, but you can change the data when you want.
@@ -164,7 +88,6 @@ You can change the bar graph when you want
 
 Example:
 
-        
          $config = [
                 'graph_length'  => 10,
                 'bar_color'  => 'lightwhite'
@@ -172,29 +95,6 @@ Example:
                 
          $bar_graph->set_config( $config );
 
-
-
-- **BEFORE DRAW, THE SYSTEM NEED TO PREPARE THE OUTPUT. WITH DRAW() IS CALLED AUTOMATICALLY, BUT YOU CAN TO PREPARE OUTSIDE. SEE EXAMPLE.PHP:**
-
-*prepare_array_output(  )*
-
-Example:
-
-        
-         $bar_graph->prepare_array_output( );
-
-
-
-- **GET THE NUMBER OF LINES BEFORE THE OUTPUT:**
-
-With next methods you will need to know the numer of lines before de output.
-
-*count_output_lines(  )*
-
-Example:
-
-        $count_output_lines = $bar_graph->count_output_lines();
-	
 
  **Of course. You can use it freely :vulcan_salute::alien:**
  
