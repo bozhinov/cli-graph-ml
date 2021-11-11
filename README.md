@@ -1,7 +1,7 @@
 # CLI PHP Graph Bars for Machine Learning with Outliers alert
 CLI PHP for visualize Machine learning datasets in Graph bar format. Detect Outliers. See your data before Training
 
-## V.1.0.2
+## V.1.0.x
 
 Before training processes at Deep Learning, the most hard work is to have a good datasets in its structure. Always we need to check the datasets before and if we see the data in graphs bars is more easy to detect outliers. This php class helps you to detect it with a shortest time. The class alert you about outliers with Red Bars.
 
@@ -36,10 +36,10 @@ Screenshot of custom bar charts in CLI PHP environtment
  *example.php* -> **example file**
  
  # DO YO WANT DISPLAY STANDARD BAR CHARTS?
- You can use the class to display bar charts with all features of colors, formats, ... as standard bar chart. To do it you simply need to hide the data explain the values.  Outliers bars will not be drawed in red and will be a standard bar col too. See *$bar_graph->set_explain_values( $boolean );* method.
+ You can use the class to display bar charts with all features of colors, formats, ... as standard bar chart. To do it you simply need to hide the data explain the values. Outliers bars will not be drawed in red and will be a standard bar col too. explain_values is part of the config options.
  
   # NOTE ABOUT OUTLIER FACTOR:
- The class has a variable with the outlier_factor. There is no trivial solution for x, but usually, a value between 2 and 4 seems practical. See set_outlier_factor() Method
+ The class has a variable with the outlier_factor. There is no trivial solution for x, but usually, a value between 2 and 4 seems practical. outlier_factor is part of the config options.
  
  
  # INSTALLATION:
@@ -67,17 +67,6 @@ Screenshot of custom bar charts in CLI PHP environtment
          $config = ['title' => 'Months in %'];
          $bar_graph = new cli_graph_ml( $arr_val_example_1, $axis_x_values , $config);
          $bar_graph->draw();
-
-- **SET DATA:**
-
-When you create the class, it will be created with $data param, but you can change the data when you want.
-
-*set_data( $arr_data )*
-
-Example:
-
-        $arr_val_example_3 = [  11,22,55,60,70,90,120,150,180,190,380 ];
-        $bar_graph->set_data( $arr_val_example_3 );
 
 
 - **CHANGE CONFIGURATION:**
@@ -109,6 +98,6 @@ Example:
  
  @since SEPTEMBER 2021
  
- @version 1.0.0
+ @version 1.0.x
  
  @license GNU General Public License v3.0
