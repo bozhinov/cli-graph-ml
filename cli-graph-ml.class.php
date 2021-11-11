@@ -67,13 +67,9 @@ ini_set('default_charset', 'UTF-8');
  * U+258E	▎	Left one quarter block
  * U+258F	▏	Left one eighth block
  * U+2590	▐	Right half block
- * 
  * U+2591	░	Light shade
- * 
  * U+2592	▒	Medium shade
- * 
  * U+2593	▓	Dark shade
- * 
  * U+2594	▔	Upper one eighth block
  * U+2595	▕	Right one eighth block
  * U+2596	▖	Quadrant lower left
@@ -93,8 +89,6 @@ class cli_graph_ml
 	/**
 	 * Border Characters
 	 * see: https://unicode-table.com/en/blocks/box-drawing/
-	 * @var    array
-	 * @access private
 	 **/
 	private $border_chars = [
 		'simple' => [
@@ -170,9 +164,6 @@ class cli_graph_ml
 
 	/**
 	 * colors
-	 * chr(27).'[1;34m',
-	 * @var    array
-	 * @access private
 	 **/
 	private $text_colors = [
 		'lightblue'     => '[1;34m',
@@ -216,11 +207,6 @@ class cli_graph_ml
 		'reset'         => '[0m'
 	];
 
-	/**
-	 * Definition of Defaut Table Format values
-	 * @var    array
-	 * @access private
-	 **/
 	private $default_cfg = [
 		'block_type'    => 'Full_block', // not used for now
 		'orientation'   => 'V', // for now only 'V'
@@ -287,11 +273,10 @@ class cli_graph_ml
 	private $padding_right;
 	private $arr_output = [];
 	private $axis_x_values = [];
-
 	private $max_value;
 	private $min_value;
 	private $arr_prepare_output = [];
-	private $arr_id_data_visible = []; // Array with the id's even the value is 0 and cannot be drawed in graph, but we need to know if there is a min() value in data. Then draw it with Lower_one_eighth_block
+	private $arr_id_data_visible = [];
 
 	public function __construct($data = null, array $axis_x_values = [], array $config = [])
 	{
@@ -305,10 +290,7 @@ class cli_graph_ml
 		}
 	}
 
-	/**
-	 * Set DATA
-	 * @param array $data
-	 */
+	/** Set DATA */
 	public function set_data(array $data)
 	{
 		$this->data = $data;
@@ -321,27 +303,13 @@ class cli_graph_ml
 	/**
 	 * Set array of id's visibles even the value is 0
 	 * Array with the id's even the value is 0 and cannot be drawed in graph, but we need to know if there is a min() value in data. Then draw it with Lower_one_eighth_block
-	 * @param array $arr_id_data_visible
 	 */
 	public function set_arr_id_data_visible(array $ids)
 	{
 		$this->arr_id_data_visible = $ids;
 	}
 
-	/**
-	 * Set SHOW X,Y AXIS TITLE
-	 * @param boolean $show_axis_titles
-	 */
-	public function set_show_axis_titles(bool $show_axis_titles = true)
-	{
-		$this->set_show_x_axis_title($show_axis_titles);
-		$this->set_show_y_axis_title($show_axis_titles);
-	}
-
-	/**
-	 * Set PADDING
-	 * @param integer $padding
-	 */
+	/** Set PADDING */
 	public function set_padding(int $padding = 1)
 	{
 		$this->config['left_padding'] = $padding;
@@ -350,19 +318,13 @@ class cli_graph_ml
 		$this->config['bottom_padding'] = $padding;
 	}
 
-	/**
-	 * Set CONFIG
-	 * @param array $config
-	 */
+	/** Set CONFIG */
 	public function set_config(array $config)
 	{
 		$this->config = array_merge($this->config, $config);
 	}
 
-	/**
-	 * Get Str chars of down X axis border
-	 * @return string $border
-	 */
+	/** Get Str chars of down X axis border */
 	private function get_down_border()
 	{
 		$border_cfg = $this->border_chars[$this->config['border_chars']];
@@ -373,10 +335,7 @@ class cli_graph_ml
 		return $chr_corner.str_repeat($chr_line, $this->data_width + 2); // +2 free space left & right
 	}
 
-	/**
-	 * Get Str chars of up X axis border
-	 * @return string $border
-	 */
+	/** Get Str chars of up X axis border */
 	private function get_up_border()
 	{
 		$chr_corner = ' ';
@@ -384,9 +343,7 @@ class cli_graph_ml
 		return $chr_corner.str_repeat($chr_line, $this->data_width + 2); // +2 = free space left and right
 	}
 
-	/**
-	 * Justify axis values
-	 */
+	/** Justify axis values */
 	private function justify(array $vals, int $offset = 0)
 	{
 		$limit = $this->data_width + 4 + $offset;
@@ -404,9 +361,7 @@ class cli_graph_ml
 		return $ret;
 	}
 
-	/**
-	 * Prepare Graph Lines
-	 */
+	/** Prepare Graph Lines */
 	private function prepare_graph_lines()
 	{
 		$this->arr_prepare_output = [];
@@ -429,31 +384,25 @@ class cli_graph_ml
 		}
 	}
 
-	/**
-	 * Get Graph Line
-	 * @param integer $id_line (begin 0 with top line graph)
-	 * @param integer $low_limit
-	 * @param integer $high_limit
-	 * @return string str_line
-	 */
-	private function get_graph_line($id_line, $low_limit, $high_limit)
+	/** Get Graph Line */
+	private function get_graph_line(int $id_line, int $low_limit, int $high_limit)
 	{
 		$str_line = '';
 		$explain = $this->config['explain_values'];
 		$bar_width = $this->config['bar_width'];
 		$graph_length = $this->config['graph_length'];
 		$bar_color = $this->text_colors[$this->config['bar_color']];
-		$chr_underlines = ($this->config['draw_underlines'] && (($id_line+1) % $this->config['underlines_every'] == 0)) ? '_' : ' ';
+		$chr_underlines = ($this->config['draw_underlines'] && (($id_line + 1) % $this->config['underlines_every'] == 0)) ? '_' : ' ';
 
 		foreach($this->data as $key => $data){
-			if($this->arr_prepare_output[$key][$graph_length - $id_line-1]=='1'){
+			if($this->arr_prepare_output[$key][$graph_length - $id_line - 1] == '1'){
 				$str_line .= chr(27);
 				if($explain && ($data < $low_limit || $data > $high_limit)){
 					$str_line .= $this->text_colors['red'];
 				} else {
 					$str_line .= $bar_color;
 				}
-				$str_line .= str_repeat($this->blocks['Full_block'], $bar_width-1);
+				$str_line .= str_repeat($this->blocks['Full_block'], $bar_width - 1);
 				//Quadrant_lower_left
 				$str_line .= $this->blocks['Left_half_block'];
 				$str_line .= chr(27).'[0m';
@@ -462,7 +411,8 @@ class cli_graph_ml
 					// We need to draw someting to show the value exists, unless is 0
 					$str_line .= str_repeat($this->blocks['Lower_half_block'], $bar_width);
 				} else {
-					$str_line .= str_repeat($chr_underlines, $bar_width);  // Fill with graph char code of ' '
+					// Fill with graph char code of ' '
+					$str_line .= str_repeat($chr_underlines, $bar_width);
 				}
 			}
 		}
@@ -553,9 +503,7 @@ class cli_graph_ml
 		}
 	}
 
-	/**
-	 * Predict line count
-	 */
+	/** Predict line count */
 	public function predict_line_count()
 	{
 		$count = $this->config['padding_top'] +  $this->config['graph_length'] + $this->config['padding_bottom'] + 4;
@@ -567,9 +515,7 @@ class cli_graph_ml
 		return $count;
 	}
 
-	/**
-	 * Prepare Output in Array
-	 */
+	/** Prepare Output in Array */
 	public function prepare_output()
 	{
 		$this->arr_output = [];
@@ -643,27 +589,19 @@ class cli_graph_ml
 		}
 	}
 
-	/**
-	 * Get count(lines) of graph output
-	 * return integer $num_lines
-	 */
+	/** Get count(lines) of graph output */
 	public function count_output_lines()
 	{
 		return count($this->arr_output);
 	}
 
-	/**
-	 * Draw only 1 line id by $line_id
-	 * @param integer $line_id
-	 */
+	/** Draw only 1 line id by $line_id */
 	public function draw_line(int $id)
 	{
 		echo $this->arr_output[$id];
 	}
 
-	/**
-	 * Draw Graph
-	 */
+	/** Draw Graph */
 	public function draw()
 	{
 		$this->prepare_output();
