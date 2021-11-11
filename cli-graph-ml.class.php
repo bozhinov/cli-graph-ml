@@ -373,6 +373,11 @@ class cli_graph_ml
 		 $this->arr_output[] = $this->padding_left.$add_left.$string.$this->padding_right;
 	}
 
+	private function line_empty()
+	{
+		$this->arr_output[] = " ";
+	}
+
 	private function line_format_custom($left, $string)
 	{
 		$this->arr_output[] = $left.$string.$this->padding_right;
@@ -462,7 +467,7 @@ class cli_graph_ml
 
 		// Padding Top
 		for($i = $this->config['padding_top']; $i > 0; $i--){
-			$this->line_format($this->default_padded(''));
+			$this->line_empty();
 		}
 		// Graph Title
 		$this->line_format($this->default_padded($this->config['title']));
@@ -518,8 +523,7 @@ class cli_graph_ml
 		// Padding Bottom
 		$padding_bottom = $this->config['padding_bottom'];
 		for($i = $padding_bottom; $i > 0; $i--){
-			 // +1 = vertical col axis separator, +2 = free space left and right
-			$this->line_format($this->default_padded(''));
+			$this->line_empty();
 		}
 	}
 
