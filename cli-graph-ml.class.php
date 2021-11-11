@@ -2,93 +2,26 @@
 
 ini_set('default_charset', 'UTF-8');
 
-/** cli-graph-ml.class.php
- *  
+/** 
  * Class for visualize data in bar graph & detect outliers
- * 
- *     Months in %
- *      _____________
- *   38|___________▌_
- *   35|___________▌_
- * A 32|___________▌_
- * X 29|___________▌_
- * I 26|___________▌_
- * S 23|__________▌▌_
- *   20|_________▌▌▌_
- * Y 17|_______▌▌▌▌▌_
- *   14|______▌▌▌▌▌▌_
- *   11|___▌▌▌▌▌▌▌▌▌_
- *     +-------------
- *       |    |    |
- *      Jan  Jun  Dec
- *         AXIS X
- *      Max: 38
- *      Min: 1
- *      Sum: 132
- *      Avg: 12.00
- *      Median: 9.00
- *      Variance: 12.00
- *      Std Desv: 3.46
- *      O. Up Lim: 22.39
- *      O. Do Lim: 1.61
- *
- * 
  * 
  * @author Rafael Martin Soto
  * @author {@link https://www.inatica.com/ Inatica}
  * @blog {@link https://rafamartin10.blogspot.com/ Blog Rafael Martin Soto}
  * @since September 2021
- * @version 1.0.2
+ * @version based on 1.0.2
  * @license GNU General Public License v3.0
+ * @mod by Momchil Bozhinov:
+ * https://github.com/bozhinov/cli-graph-ml
  * 
- * @param string $data
- * @param array $axis_x_values
- * @param string $config
- *
- * Some utils docs:
- * https://en.wikipedia.org/wiki/List_of_Unicode_characters
- * https://www.w3schools.com/charsets/ref_utf_box.asp
- * https://compwright.com/2012-11-26/box-drawing-in-php/
- * 
- * U+2580	▀	Upper half block
- * U+2581	▁	Lower one eighth block
- * U+2582	▂	Lower one quarter block
- * U+2583	▃	Lower three eighths block
- * U+2584	▄	Lower half block
- * U+2585	▅	Lower five eighths block
- * U+2586	▆	Lower three quarters block
- * U+2587	▇	Lower seven eighths block
- * U+2588	█	Full block
- * U+2589	▉	Left seven eighths block
- * U+258A	▊	Left three quarters block
- * U+258B	▋	Left five eighths block
- * U+258C	▌	Left half block
- * U+258D	▍	Left three eighths block
- * U+258E	▎	Left one quarter block
- * U+258F	▏	Left one eighth block
- * U+2590	▐	Right half block
- * U+2591	░	Light shade
- * U+2592	▒	Medium shade
- * U+2593	▓	Dark shade
- * U+2594	▔	Upper one eighth block
- * U+2595	▕	Right one eighth block
- * U+2596	▖	Quadrant lower left
- * U+2597	▗	Quadrant lower right
- * U+2598	▘	Quadrant upper left
- * U+2599	▙	Quadrant upper left and lower left and lower right
- * U+259A	▚	Quadrant upper left and lower right
- * U+259B	▛	Quadrant upper left and upper right and lower left
- * U+259C	▜	Quadrant upper left and upper right and lower right
- * U+259D	▝	Quadrant upper right
- * U+259E	▞	Quadrant upper right and lower left
- * U+259F	▟	Quadrant upper right and lower left and lower right
- * */
+ **/
 
 class cli_graph_ml
 {
 	/**
 	 * Border Characters
 	 * see: https://unicode-table.com/en/blocks/box-drawing/
+	 * also: https://www.w3schools.com/charsets/ref_utf_box.asp
 	 **/
 	private $border_chars = [
 		'simple' => [
@@ -231,6 +164,7 @@ class cli_graph_ml
 		'outlier_factor' => 2
 	];
 
+	# https://www.w3schools.com/charsets/ref_utf_block.asp
 	private $blocks = [
 		'Upper_half_block'                                     => "\xe2\x96\x80",
 		'Lower_one_eighth_block'                               => "\xe2\x96\x81",
