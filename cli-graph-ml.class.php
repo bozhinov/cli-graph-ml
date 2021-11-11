@@ -228,9 +228,9 @@ class cli_graph_ml
 	public function set_data(array $data)
 	{
 		$this->data = $data;
-		$this->count_data = count($this->data);
-		$this->max_value = max($this->data);
-		$this->min_value = min($this->data);
+		$this->count_data = count($data);
+		$this->max_value = max($data);
+		$this->min_value = min($data);
 		$this->data_width = $this->count_data * $this->config['bar_width'];
 	}
 
@@ -300,8 +300,8 @@ class cli_graph_ml
 	{
 		$this->arr_prepare_output = [];
 
-		for($i = 0; $i < $this->count_data; $i++){
-			$full = (int)($this->data[$i] * $this->config['graph_length'] / $this->max_value);
+		foreach($this->data as $d){
+			$full = (int)($d * $this->config['graph_length'] / $this->max_value);
 			$empty = $this->config['graph_length'] - $full;
 
 			$strPrepare = '';
@@ -390,9 +390,9 @@ class cli_graph_ml
 		$avg = $sum / $this->count_data;
 		$sum_median = 0;
 
-		for($i=0; $i < $this->count_data; $i++){
-			$substract = $this->data[$i] - $avg;
-			$sum_median += $substract * $substract; // pow($substract, 2);
+		foreach($this->data as $d){
+			$substract = $d - $avg;
+			$sum_median += $substract * $substract;
 		}
 
 		$vari = $sum_median/$this->count_data;
@@ -407,7 +407,7 @@ class cli_graph_ml
 		$arr_sort = $this->data;
 		$pos_median = ($this->count_data + 1) / 2;
 		sort($arr_sort, SORT_NUMERIC);
-		$median = (double)((($this->count_data % 2 != 0)) ? $arr_sort[$pos_median - 1] : ($arr_sort[$pos_median - 1] + $arr_sort[$pos_median]) / 2);
+		$median = (double)(($this->count_data % 2 != 0) ? $arr_sort[$pos_median - 1] : ($arr_sort[$pos_median - 1] + $arr_sort[$pos_median]) / 2);
 		$vari = $std * $std;
 
 		$arr_explain = [
