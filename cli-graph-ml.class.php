@@ -212,7 +212,7 @@ class cli_graph_ml
 		'magenta'       => '[0;35m',
 		'cyan'          => '[0;36m',
 		'white'         => '[0;37m',
-		'orange'        => '[38;5;214m', // if supported by the terminal
+		'orange'        => '[38;5;214m',
 		'reset'         => '[0m'
 	];
 
@@ -225,7 +225,7 @@ class cli_graph_ml
 		'block_type'    => 'Full_block', // not used for now
 		'orientation'   => 'V', // for now only 'V'
 		'graph_type'    => 'bar', // For now only 'bar'
-		'border_chars'  => 'simple', // for now only 'simple'
+		'border_chars'  => 'simple',
 		'graph_length'  => 10,
 		'bar_color'  => 'lightwhite',
 		'title'  => '',
@@ -367,8 +367,8 @@ class cli_graph_ml
 	{
 		$border_cfg = $this->border_chars[$this->config['border_chars']];
 
-		$chr_corner = html_entity_decode($border_cfg['bottom-left'], ENT_NOQUOTES, 'UTF-8');
-		$chr_line   = html_entity_decode($border_cfg['bottom'], ENT_NOQUOTES, 'UTF-8');
+		$chr_corner = $border_cfg['bottom-left'];
+		$chr_line   = $border_cfg['bottom'];
 
 		return $chr_corner.str_repeat($chr_line, $this->data_width + 2); // +2 free space left & right
 	}
