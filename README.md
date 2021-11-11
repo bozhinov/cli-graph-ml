@@ -1,4 +1,4 @@
-# CLI PHP Graph Bars for Machine Learning with Outliers alert
+# CLI PHP Graph Bars for Machine Learning
 CLI PHP for visualize Machine learning datasets in Graph bar format. Detect Outliers. See your data before Training
 
 ## V.1.0.x
