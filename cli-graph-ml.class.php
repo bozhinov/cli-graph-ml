@@ -278,9 +278,8 @@ class cli_graph_ml
 	}
 
 	/** Justify axis values */
-	private function justify(array $vals, int $offset = 0)
+	private function justify(array $vals, int $limit)
 	{
-		$limit = $this->data_width + 4 + $offset;
 		$s = trim(implode(" ", $vals));
 		$l = strlen($s);
 
@@ -370,7 +369,7 @@ class cli_graph_ml
 
 	private function line_format($string, $add_left = '')
 	{
-		 $this->arr_output[] = $this->padding_left.$add_left.$string.$this->padding_right;
+		$this->arr_output[] = $this->padding_left.$add_left.$string.$this->padding_right;
 	}
 
 	private function line_empty()
@@ -505,9 +504,9 @@ class cli_graph_ml
 		$this->line_format($this->get_down_border());
 
 		// Axis X Separators |
-		$this->line_format("  ".$this->justify(array_fill(0, count($this->axis_x_values), "|"), -2)." ");
+		$this->line_format("  ".$this->justify(array_fill(0, count($this->axis_x_values), "|"), $this->data_width + 2)." ");
 		// Axis X Values
-		$this->line_format(" ".$this->justify($this->axis_x_values));
+		$this->line_format(" ".$this->justify($this->axis_x_values, $this->data_width + 4));
 
 		// Axis X Title
 		if($this->config['show_x_axis_title']){
