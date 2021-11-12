@@ -367,9 +367,9 @@ class cli_graph_ml
 		$this->padding_right = str_repeat(' ', $this->config['padding_right']);
 	}
 
-	private function line_format($string, $add_left = '')
+	private function line_format($string)
 	{
-		$this->arr_output[] = $this->padding_left.$add_left.$string.$this->padding_right;
+		$this->arr_output[] = $this->padding_left.$string.$this->padding_right;
 	}
 
 	private function line_empty()
