@@ -365,6 +365,7 @@ class cli_graph_ml
 
 		$this->padding_left = $str_padding_left.$str_char_title_y.$str_blank_left_values;
 		$this->padding_right = str_repeat(' ', $this->config['padding_right']);
+		#$this->empty_line = str_repeat(' ', $this->data_width + 4 + strlen($this->padding_left) + strlen($this->padding_right));
 	}
 
 	private function line_format($string)
